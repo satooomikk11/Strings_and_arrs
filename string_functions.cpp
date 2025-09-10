@@ -1,8 +1,16 @@
 #include "string_functions.h"
+const int INITIAL_SIZE = 128;
+const int MAX_STR_LENGTH = 500;
+
+/*
+1. С‡С‚Рѕ С‚Р°РєРѕРµ С„Р°Р№Р» "str.h func.cpp"?
+2. РґРѕР±Р°РІСЊ РјРµР№РєС„Р°Р№Р» РёР»Рё СЃРєСЂРёРїС‚ РєРѕС‚РѕСЂС‹Рј СЌС‚Рѕ РґРµР»Рѕ СЃРѕР±РёСЂР°С‚СЊ
+5. РєРѕРіРґР° РґРµР»Р°РµС€СЊ realloc - С‚Р° Р¶Рµ РїСЂРѕР±Р»РµРјР°, РЅРµ РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚СЃСЏ РЅРѕРІС‹Р№ СѓС‡Р°СЃС‚РѕРє
+*/
 
 
 // prints strings character by character until the NULL character is encountered
-// str - передаваемая строка
+// str - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 int my_puts(const char* str)
     {
 
@@ -11,7 +19,7 @@ int my_puts(const char* str)
         return EOF;
         }
 
-    // пока не 0
+    // пїЅпїЅпїЅпїЅ пїЅпїЅ 0
     for ( ; *str != '\0' ; str++ )
         {
         if (putchar(*str) == EOF)
@@ -27,8 +35,8 @@ int my_puts(const char* str)
 
 
 // find the first occurrence of a character
-// str - передаваемая строка
-// ch  - элемент, который мы ищем в строке (int преобразуется внутри системы, чтобы юзать символы)
+// str - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+// ch  - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (int пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 char *my_strchr(const char *str, int ch)
     {
 
@@ -54,11 +62,11 @@ char *my_strchr(const char *str, int ch)
 
 
 // length of the string
-// str - передаваемая строка
+// str - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 int my_strlen(const char *str)
     {
 
-    // для подсчёта chars в str
+    // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ chars пїЅ str
     int counter = 0;
 
     for ( ; *str != '\0' ; str++ )
@@ -72,23 +80,23 @@ int my_strlen(const char *str)
 
 
 // copy one string into another (with 0?)
-// dest - строка куда копируем
-// src  - строка которую копируем
+// dest - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// src  - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 char *my_strcpy(char *dest, const char *src)
     {
 
     // ptr - running pointer
-    // без ptr возвращался бы указатель на начало, т.к. dest бы менялся
-    // а так ptr бежит по dest
+    // пїЅпїЅпїЅ ptr пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ.пїЅ. dest пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    // пїЅ пїЅпїЅпїЅ ptr пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ dest
     char *ptr = dest;
 
     while (*src != '\0')
         {
-        // двигаем ptr по dest
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ptr пїЅпїЅ dest
         *ptr++ = *src++;
         }
 
-    // терминатор в конец, чтобы в конце dest не было мусора
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ dest пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     *ptr = '\0';
     return dest;
 
@@ -96,15 +104,15 @@ char *my_strcpy(char *dest, const char *src)
 
 
 // copy a specified number of characters from one string to another
-// dest - строка куда копируем
-// src  - строка которую копируем
-// n    - кол-во копируемых символов
+// dest - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// src  - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// n    - пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 char *my_strncpy(char *dest, const char *src, size_t n)
     {
 
     char *ptr = dest;
 
-    // копируем символы
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     for (size_t i = 0; i < n && src[i] != '\0'; i++)
         {
         *ptr++ = src[i];
@@ -121,8 +129,8 @@ char *my_strncpy(char *dest, const char *src, size_t n)
 
 
 // append a copy in the destination string (with 0)
-// dest - строка куда добавляем
-// src  - строка которую добавляем
+// dest - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// src  - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 char *my_strcat(char *dest, const char *src)
     {
 
@@ -145,9 +153,9 @@ char *my_strcat(char *dest, const char *src)
 
 
 // append not more than n characters (with 0)
-// dest - строка куда добавляем
-// src  - строка которую добавляем
-// n    - кол-во доп символов
+// dest - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// src  - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// n    - пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 char *my_strncat(char *dest, const char *src, size_t n)
     {
 
@@ -172,20 +180,20 @@ char *my_strncat(char *dest, const char *src, size_t n)
 
 // converts the numbers in string form to their integer value
 // accepts a string as a parameter and yields an integer value in return
-// strg - преобразуемая строка
+// strg - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 int my_atoi(const char *strg)
     {
 
     int result = 0;
     int sign = 1;
 
-    // пропуск пробелов
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     while (*strg == ' ')
         {
         strg++;
         }
 
-    // обработка знака
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     if (*strg == '-')
         {
         sign = -1;
@@ -196,7 +204,7 @@ int my_atoi(const char *strg)
         strg++;
         }
 
-    // преобразование
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     while (*strg >= '0' && *strg <= '9')
         {
         result = result * 10 + (*strg - '0');
@@ -210,25 +218,25 @@ int my_atoi(const char *strg)
 
 // reads the given number of characters of a line
 // from the input stream and stores it into the specified string
-// buff   - строковый буфер с входными данными
-// n      - кол-во символов
-// stream - входной поток
+// buff   - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// n      - пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// stream - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 char *my_fgets(char *buff, int n, FILE *stream)
     {
 
-    int ch;
+    int ch = 0;
     char *ptr = buff;
 
     if (n <= 0) return NULL;
 
-    // чтение до n-1 символов или новой строки/EOF
+    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ n-1 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ/EOF
     for (int i = 0; i < n - 1; i++)
         {
         ch = fgetc(stream);
 
         if (ch == EOF)
             {
-            if (ptr == buff) return NULL; // ничего не прочитали
+            if (ptr == buff) return NULL; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             break;
             }
 
@@ -247,15 +255,15 @@ char *my_fgets(char *buff, int n, FILE *stream)
 
 
 // returns a pointer to the duplicated string s
-// сама функция не должна освобождать память, это должен делать вызывающий код
-// s - копируемая строка
+// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+// s - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 char *my_strdup(const char *s)
     {
 
     if (s == NULL) return NULL;
 
     size_t len = strlen(s) + 1;
-    char *new_str = (char *)malloc(len);
+    char *new_str = (char *)calloc(MAX_STR_LENGTH, len);
 
     if (new_str == NULL) return NULL;
 
@@ -265,16 +273,16 @@ char *my_strdup(const char *s)
 
 
 // get a string from a file
-// lineptr - указатель на указатель буфера
-// n       - размер буфера
-// stream  - файл
+// lineptr - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+// n       - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+// stream  - пїЅпїЅпїЅпїЅ
 
-// pos - позиция в буфере
-// ch  - прочитанный символ
-ssize_t my_getline(char **lineptr, size_t *n, FILE *stream)
+// pos - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+// ch  - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+size_t my_getline(char **lineptr, size_t *n, FILE *stream)
     {
 
-    // проверка входных параметров
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     if (lineptr == NULL || n == NULL || stream == NULL)
         {
         return -1;
@@ -283,17 +291,17 @@ ssize_t my_getline(char **lineptr, size_t *n, FILE *stream)
     size_t pos = 0;
     int ch = 0;
 
-    // выделение памяти, если не выделена
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     if (*lineptr == NULL || *n == 0)
         {
-        *n = 128;
-        *lineptr = (char *)malloc(*n);
+        *n = INITIAL_SIZE;
+        *lineptr = (char *)calloc(MAX_STR_LENGTH, *n);
         if (*lineptr == NULL) return -1;
         }
 
     while ((ch = fgetc(stream)) != EOF)
         {
-        // увеличиваем буфер при необходимости
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (pos + 1 >= *n)
             {
             size_t new_size = *n * 2;
@@ -313,10 +321,55 @@ ssize_t my_getline(char **lineptr, size_t *n, FILE *stream)
 
     if (pos == 0 && ch == EOF)
         {
-        return -1; // конец файла
+        return -1; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         }
 
     (*lineptr)[pos] = '\0';
-    return (ssize_t)pos;
+    return (size_t)pos;
 
+    }
+
+
+// takes two strings s1 and s2 as arguments and finds the first occurrence of the string s2 in the string s1
+// s1 - РёСЃС…РѕРґРЅР°СЏ СЃС‚СЂРѕРєР°
+// s2 - СЃС‚СЂРѕРєР° РєРѕС‚РѕСЂСѓСЋ РёС‰РµРј РІ s1
+// РІРѕР·РІСЂР°С‰Р°РµС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРІС‹Р№ СЃРёРјРІРѕР» s2 РІ s1
+char *my_strstr(const char *s1, const char *s2)
+    {
+
+    if (s1 == NULL || s2 == NULL)
+        {
+        return NULL;
+        }
+    
+    // Р•СЃР»Рё s2 РїСѓСЃС‚Р°СЏ СЃС‚СЂРѕРєР° - РІРѕР·РІСЂР°С‰Р°РµРј s1
+    if (*s2 == '\0')
+        {
+        return (char *)s1;
+        }
+    
+    // РџСЂРѕС…РѕРґРёРј РїРѕ s1
+    while (*s1 != '\0')
+        {
+        const char *h = s1;
+        const char *n = s2;
+        
+        // С‡РµРє РїРѕРґСЃС‚СЂРѕРє
+        while (*h != '\0' && *n != '\0' && *h == *n)
+            {
+            h++;
+            n++;
+            }
+        
+        // РєРѕРЅРµС† s2 -> РµСЃС‚СЊ СЃРѕРІРїР°РґРµРЅРёРµ
+        if (*n == '\0')
+            {
+            return (char *)s1;
+            }
+        
+        s1++;
+        }
+    
+    return NULL; // РЅРµС‚ s2
+    
     }
